@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ProductInventoryTracker.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Product Inventory</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">
+        Add Product
+    </a>
+</p>
+
+<form asp-action="Index" method="get">
+    <div class="input-group mb-3">
+        <input type="text"
+               name="search"
+               class="form-control"
+               placeholder="Search product by name" />
+
+        <button type="submit" class="btn btn-secondary">
+            Search
+        </button>
+    </div>
+</form>
+
+<table class="table table-bordered table-striped">
+
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Created Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+
+                <td>@item.Name</td>
+
+                <td>@item.Quantity</td>
+
+                <td>₹@item.Price</td>
+
+                <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+
+                <td>
+                    <a asp-action="Details"
+                       asp-route-id="@item.ProductId"
+                       class="btn btn-info btn-sm">
+                        Details
+                    </a>
+
+                    <a asp-action="Edit"
+                       asp-route-id="@item.ProductId"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
+
+                    <a asp-action="Delete"
+                       asp-route-id="@item.ProductId"
+                       class="btn btn-danger btn-sm">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
